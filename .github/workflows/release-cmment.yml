@@ -32,23 +32,9 @@ jobs:
         with:
           ref: ${{ steps.refs.outputs.head_ref }}
 
-      # - name: Checkout pull request 🏁
-      #   uses: actions/checkout@v3
-      #   with:
-      #     ref: refs/pull/${{ github.event.issue.number }}/head
-
-      - name: set up env var
+      - name: set up env branch name var
         run: echo "BRANCH_NAME=$(echo $(git branch --show-current))" >> $GITHUB_ENV
-      - name: use env var
-        run: echo ${{ env.BRANCH_NAME }}
-      - name: check
-        run: |
-          echo ${{ startsWith( env.BRANCH_NAME, 'v2-release' ) }}
-          echo github.event.issue.number ${{ github.event.issue.number  }}
-          echo github.head_ref ${{ github.head_ref  }}
-          echo github.ref ${{ github.ref  }}
-          echo github.base_ref ${{ github.base_ref  }}
-          echo github.sha ${{ github.sha  }}
-          echo github.ref_name ${{ github.ref_name  }}
-          echo "$(git branch --show-current)"
-          git branch --show-current
+
+      - name: Exit pre release mode for changesets
+        if: ${{ startsWith( env.BRANCH_NAME, 'v2-release' ) }}
+        run: echo YAY
