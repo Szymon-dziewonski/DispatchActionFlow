@@ -1,13 +1,23 @@
 name: Test
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      - v2-release/**
 
 jobs:
-  commit-message:
-    name: Check commit message
+  create-changelog:
+    name: Create changelog
     runs-on: ubuntu-latest
+    if: ${{ startsWith( github.head_ref, 'v2-release' ) }}
     steps:
-      - name: Check commit message
-        run: echo "Last commit message is ${{ github.event.head_commit.message }}"
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: 1
+          body-regex: "!exit-rc"
+      - run: |
+          echo ${{ steps.fc.outputs.comment-id }}
+          echo ${{ steps.fc.outputs.comment-body }}
+          echo ${{ steps.fc.outputs.comment-author }}
+          echo ${{ steps.fc.outputs.comment-created-at }}
