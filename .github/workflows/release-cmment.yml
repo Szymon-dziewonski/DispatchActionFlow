@@ -28,5 +28,7 @@ jobs:
           ref: refs/pull/${{ github.event.issue.number }}/head
 
       - run: echo ${{ startsWith( github.event, 'v2-release' ) }}
-      - run: echo ${{ github.head_ref  }}
-      - run: echo ${{ github.ref  }}
+      - run: echo github.event.issue.number ${{ github.event.issue.number  }}
+      - run: echo github.head_ref ${{ github.head_ref  }}
+      - run: echo github.ref ${{ github.ref  }}
+      - run: echo github.base_ref ${{ github.base_ref  }}
