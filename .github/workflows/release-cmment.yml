@@ -22,6 +22,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: resolve pr refs
+        id: refs
+        uses: eficode/resolve-pr-refs@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - run: echo ${{ startsWith( github.event, 'v2-release' ) }}
-      - run: echo ${{ github.ref }}
-      - run: echo ${{ github.ref_name }}
+      - run: echo ${{ steps.refs.outputs.head_ref  }}
