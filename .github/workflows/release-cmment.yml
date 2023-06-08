@@ -22,11 +22,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: resolve pr refs
-        id: refs
-        uses: eficode/resolve-pr-refs@main
+      - name: Checkout pull request 🏁
+        uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: refs/pull/${{ github.event.issue.number }}/head
 
       - run: echo ${{ startsWith( github.event, 'v2-release' ) }}
-      - run: echo ${{ steps.refs.outputs.head_ref  }}
+      - run: echo ${{ github.head_ref  }}
+      - run: echo ${{ github.ref  }}
