@@ -37,6 +37,10 @@ jobs:
       #   with:
       #     ref: refs/pull/${{ github.event.issue.number }}/head
 
+      - name: set up env var
+        run: echo "BRANCH_NAME=$(echo git branch --show-current)" >> $GITHUB_ENV
+      - name: use env var
+        run: echo ${{ env.BRANCH_NAME }}
       - name: check
         run: |
           echo ${{ startsWith( github.event, 'v2-release' ) }}
