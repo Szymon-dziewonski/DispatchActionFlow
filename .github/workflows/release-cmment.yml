@@ -12,7 +12,6 @@ defaults:
 jobs:
   snapshot-release:
     name: Create a snapshot release of a pull request
-    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!preview') }}
     runs-on: ubuntu-latest
     steps:
       - name: "Check if user has admin access"
@@ -22,6 +21,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - run: echo ${{ github.event.issue.pull_request }}
       - run: echo ${{ contains(github.event.comment.body, '!release') }}
 
       # - name: resolve pr refs
