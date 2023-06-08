@@ -12,7 +12,7 @@ defaults:
 jobs:
   snapshot-release:
     name: Create a snapshot release of a pull request
-    if: ${{ github.event.comment.body == '!exit-rc' }}
+    if: ${{ github.event.comment.body == '!exit-rc' && github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
       - name: "Check if user has admin access"
@@ -22,5 +22,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo ${{ startsWith( github.head_ref, 'v2-release' ) }}
-      - run: echo ${{ github.head_ref }}
+      - run: echo ${{ startsWith( github.event, 'v2-release' ) }}
+      - run: echo ${{ github.ref }}
+      - run: echo ${{ github.ref_name }}
