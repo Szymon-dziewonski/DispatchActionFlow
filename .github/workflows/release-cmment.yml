@@ -12,7 +12,7 @@ defaults:
 jobs:
   snapshot-release:
     name: Create a snapshot release of a pull request
-    if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!preview') }}
+    if: ${{ github.event.comment.body == '!exit-rc' }}
     runs-on: ubuntu-latest
     steps:
       - name: "Check if user has admin access"
@@ -22,23 +22,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: echo ${{ contains(github.event.comment.body, '!release') }}
-
-      # - name: resolve pr refs
-      #   id: refs
-      #   uses: eficode/resolve-pr-refs@main
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-
-      # - uses: actions/checkout@v3
-      #   with:
-      #     ref: ${{ steps.refs.outputs.head_ref }}
-
-      # - name: Setup Node
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      #     registry-url: "https://registry.npmjs.org"
-
-      # - name: Install dependencies
-      #   run: yarn install
+      - run: echo ${{ startsWith( github.head_ref, 'v2-release' ) }}
+      - run: echo ${{ github.head_ref }}
