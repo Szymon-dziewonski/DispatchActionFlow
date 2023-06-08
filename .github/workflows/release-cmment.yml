@@ -27,11 +27,13 @@ jobs:
         with:
           ref: refs/pull/${{ github.event.issue.number }}/head
 
-      - run: echo ${{ startsWith( github.event, 'v2-release' ) }}
-      - run: echo github.event.issue.number ${{ github.event.issue.number  }}
-      - run: echo github.head_ref ${{ github.head_ref  }}
-      - run: echo github.ref ${{ github.ref  }}
-      - run: echo github.base_ref ${{ github.base_ref  }}
-      - run: echo github.sha ${{ github.sha  }}
-      - run: echo github.ref_name ${{ github.ref_name  }}
-      - run: echo github.pull_request.ref $(git branch --show-current)
+      - name: check
+        run: |
+          echo ${{ startsWith( github.event, 'v2-release' ) }}
+          echo github.event.issue.number ${{ github.event.issue.number  }}
+          echo github.head_ref ${{ github.head_ref  }}
+          echo github.ref ${{ github.ref  }}
+          echo github.base_ref ${{ github.base_ref  }}
+          echo github.sha ${{ github.sha  }}
+          echo github.ref_name ${{ github.ref_name  }}
+          git branch --show-current
