@@ -2,7 +2,7 @@ name: Create changelog
 on:
   pull_request:
     branches:
-      - "v2-release/**"
+      - "v2/releases/**"
     types:
       - opened
       - reopened
