@@ -28,7 +28,6 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body-includes: "!exit-rc"
-          direction: "last"
       - name: Enter pre-release changelog if !exit-rc comment does not exists
         if: ${{ !steps.fc.outputs.comment-id }}
         run: echo pre enter rc
