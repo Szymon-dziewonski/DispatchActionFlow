@@ -1,13 +1,13 @@
 name: Create changelog
 on:
   pull_request:
+    branches:
+      - "v2-release/**"
     types:
       - opened
       - reopened
       - synchronize
       - ready_for_review
-    branches:
-      - 'v2-release/**'
 
 jobs:
   create-changelog:
