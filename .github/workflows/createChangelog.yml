@@ -13,6 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ startsWith( github.head_ref, 'v2-release' ) }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".node-version"
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn --immutable
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
@@ -20,13 +29,8 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body-includes: "!exit-rc"
           direction: "last"
-      # - run: |
-      #     echo ${{ steps.fc.outputs.comment-id }}
-      #     echo ${{ steps.fc.outputs.comment-body }}
-      #     echo ${{ steps.fc.outputs.comment-author }}
-      #     echo ${{ steps.fc.outputs.comment-created-at }}
       - name: Enter pre-release changelog if !exit-rc comment does not exists
-        if: ${{ steps.fc.outputs.comment-id }}
+        if: ${{ !steps.fc.outputs.comment-id }}
         run: echo pre enter rc
-      - name: Generate changesets changelog
-        run: echo changelog!
+      - name: Create PR with changelog
+        run: echo Changelog
