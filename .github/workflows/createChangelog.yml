@@ -18,7 +18,8 @@ jobs:
         id: fc
         with:
           issue-number: 1
-          body-regex: "exit-rc"
+          body-includes: "!exit-rc"
+          direction: "last"
       - run: |
           echo ${{ steps.fc.outputs.comment-id }}
           echo ${{ steps.fc.outputs.comment-body }}
