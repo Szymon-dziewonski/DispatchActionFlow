@@ -1,8 +1,11 @@
 name: Create changelog
 on:
   pull_request:
-    branches:
-      - v2-release/**
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
 
 jobs:
   create-changelog:
@@ -14,10 +17,16 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: 1
-          body-regex: "!exit-rc"
-      - run: |
-          echo ${{ steps.fc.outputs.comment-id }}
-          echo ${{ steps.fc.outputs.comment-body }}
-          echo ${{ steps.fc.outputs.comment-author }}
-          echo ${{ steps.fc.outputs.comment-created-at }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: "!exit-rc"
+          direction: "last"
+      # - run: |
+      #     echo ${{ steps.fc.outputs.comment-id }}
+      #     echo ${{ steps.fc.outputs.comment-body }}
+      #     echo ${{ steps.fc.outputs.comment-author }}
+      #     echo ${{ steps.fc.outputs.comment-created-at }}
+      - name: Enter pre-release changelog if !exit-rc comment does not exists
+        if: ${{ steps.fc.outputs.comment-id }}
+        run: echo pre enter rc
+      - name: Generate changesets changelog
+        run: echo changelog!
