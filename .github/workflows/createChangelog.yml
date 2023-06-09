@@ -11,6 +11,7 @@ jobs:
   create-changelog:
     name: Create changelog
     runs-on: ubuntu-latest
+    if: ${{ startsWith( github.head_ref, 'v2-release' ) }}
     steps:
       - name: Find Comment
         uses: peter-evans/find-comment@v2
