@@ -15,3 +15,4 @@ jobs:
           title: Auto PR with changes after publish
           body: Pull request created automatically when any change land into `v2` so branches would be in sync.
           branch: v2-develop
+          base: main
