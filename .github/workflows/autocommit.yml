@@ -9,4 +9,9 @@ jobs:
       - name: Create PR to develop
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr create -B v2-develop --title 'Some' --body 'Some body'
+        run: gh pr create -B v2-develop --title 'Some' --body 'Some body' --label automerge
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.15.6"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
