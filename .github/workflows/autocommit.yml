@@ -7,9 +7,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: gr2m/create-or-update-pull-request-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          title: Auto PR with changes after publish
-          body: Pull request created automatically when any change land into `v2` so branches would be in sync.
-          branch: main
-          base: v2-develop
+          title: "My pull request title"
+          body: "My pull request body"
+          branch: "v2-develop"
+          commit-message: "My commit message for uncommitted changes in lib/ folder"
+          author: "Lorem J. Ipsum <lorem@example.com>"
+          # auto-merge: squash
