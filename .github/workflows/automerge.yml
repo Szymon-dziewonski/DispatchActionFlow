@@ -10,13 +10,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ startsWith(github.head_ref, 'main' )}}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - run: |
-          echo ${{ github.ref }}
-          echo ${{ github.base_ref }}
-          echo ${{ github.head_ref }}
       - id: automerge
         name: automerge
         uses: "pascalgn/automerge-action@v0.15.6"
