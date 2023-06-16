@@ -13,7 +13,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr create -B v2-develop --title 'Some' --body 'Some body' --label automerge || true
+          gh pr create -B v2-develop --title 'Automatic Sync Pull Request' --body 'This PR is generated automatically with changes pushed into `v2` branch. `v2` and `v2-develop` branches should be in-sync.' --label automerge || true
       - name: Merge PR
         env:
           GH_TOKEN: ${{ github.token }}
