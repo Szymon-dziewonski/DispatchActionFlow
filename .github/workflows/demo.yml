@@ -1,0 +1,9 @@
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - run: gh issue comment -b "Hello there"
