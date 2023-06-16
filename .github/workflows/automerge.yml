@@ -8,7 +8,7 @@ on:
       - ready_for_review
       - edited
     branches:
-      - main
+      - v2-develop
 
 jobs:
   build:
@@ -17,8 +17,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - id: automerge
-        name: automerge
-        uses: "pascalgn/automerge-action@v0.15.6"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - run: echo run
+      # - id: automerge
+      #   name: automerge
+      #   uses: "pascalgn/automerge-action@v0.15.6"
+      #   env:
+      #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
