@@ -9,10 +9,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          title: Auto PR with changes after publish
-          body: Pull request created automatically when any change land into `v2` so branches would be in sync.
-          branch: v2-develop
-          base: main
+      - name: Create PR to develop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr create -B v2-develop --title 'Some' --body 'Some body' --label automerge || true
