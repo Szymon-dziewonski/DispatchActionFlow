@@ -6,4 +6,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - run: gh issue comment -b "Hello there"
+      - run: gh pr comment ${{ github.event.pull_request.number }} -b "Hello there"
+        env:
+          GH_TOKEN: ${{ github.token }}
