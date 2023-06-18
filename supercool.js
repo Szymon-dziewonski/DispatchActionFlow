@@ -1,2 +1,2 @@
 console.log('yay its alive!')
-console.log(process.env)
+console.log(process.env.branchName)
