@@ -7,5 +7,8 @@
   "license": "MIT",
   "dependencies": {
     "@changesets/cli": "^2.26.1"
+  },
+  "scripts": {
+    "dev": "node supercool"
   }
 }
