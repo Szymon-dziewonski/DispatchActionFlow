@@ -1,0 +1,26 @@
+on: push
+
+jobs:
+  create-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Create variable
+        id: variables
+        run: |
+          branchName=${{ github.ref }}
+          echo "result=${branchName##*/}" >> $GITHUB_OUTPUT
+          echo "result2=OtherVar" >> $GITHUB_OUTPUT
+      - name: Create Environment
+        run: |
+          echo "result=${{ github.event.pusher.name }}" >> $GITHUB_ENV
+          echo "result2=SomeEnv" >> $GITHUB_ENV
+      - name: Read variables from previous step
+        run: |
+          echo variable 1 ${{ steps.variables.outputs.result }}
+          echo variable 2 ${{ steps.variables.outputs.result2 }}
+      - name: Read env from previous step
+        run: |
+          echo env 1 ${{ env.result }}
+          echo env 2 ${{ env.result2 }}
